@@ -1,0 +1,24 @@
+#mcc-tab-container {
+    height: 100%;
+    padding: 1rem 0;
+
+    .mcc-tab-grid {
+        height: 100%;
+
+        .column {
+            padding-bottom: 0;
+            height: 100%;
+        }
+    }
+
+    .mcc-tab-pane {
+        padding: 0;
+        height: 100%;
+    }
+
+    .ui.menu,
+    .mcc-tab-pane {
+        border-top: 3px solid lightgray;
+        border-radius: 0;
+    }
+}

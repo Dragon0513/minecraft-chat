@@ -1,0 +1,9 @@
+// See https://code.visualstudio.com/docs/remote/containers#_devcontainerjson-reference
+{
+	"name": "MinecraftChat",
+	"dockerComposeFile": "../dockers/development/docker-compose.yml",
+	"service": "application",
+	"workspaceFolder": "/usr/src/app",
+	"shutdownAction": "stopCompose",
+	"extensions": []
+}
