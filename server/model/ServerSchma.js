@@ -10,4 +10,8 @@ module.exports = new Schema({
         type: String,
         required: true
     },
+    version: {
+        type: String,
+        required: true
+    },
 });

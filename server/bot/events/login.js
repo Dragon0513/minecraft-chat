@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { Servers } = require('../../model');
 
 module.exports = (socket) => {
 
@@ -13,6 +14,16 @@ module.exports = (socket) => {
       version: socket.connectionParams.version
     });
     console.log(`${timestamp}: logged in > ${socket.connectionParams.hostname}:${socket.connectionParams.port} - Username: ${socket.mcbot.username}`);
+
+
+    const hostdata = {
+      host: socket.connectionParams.hostname,
+      port: socket.connectionParams.port,
+      version: socket.connectionParams.version
+    };
+    Servers.updateMany(hostdata, hostdata, { upsert: true }, (err) => {
+      if (err) throw (err);
+    });
   };
 
   socket.mcbot.on('login', onLogin);
