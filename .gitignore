@@ -5,6 +5,9 @@ node_modules
 test_*
 coverage
 
+# minecraft
+dockers/minecraft-server/server.properties
+
 # production build
 .next
 

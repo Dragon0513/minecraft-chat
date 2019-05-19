@@ -4,7 +4,7 @@ services:
     build:
       context: ../..
       dockerfile: dockers/production/Dockerfile
-    image: 'woolninesun/minecraft-chat-production:latest'
+    image: 'minecraft-chat/production:latest'
     container_name: minecraft-chat-production
     ports:
       - '3000:3000'
@@ -17,13 +17,12 @@ services:
     ports:
       - '27017:27017'
   minecraft-server:
-    build:
-      context: ../minecraft-server
-      dockerfile: Dockerfile
-    image: 'woolninesun/minecraft-test-server:latest'
+    image: 'itzg/minecraft-server:latest'
     container_name: minecraft-test-server
     env_file:
       - ../minecraft-server/config.env
+    volumes:
+      - ../minecraft-server/server.properties:/data/server.properties
     network_mode: "service:application"
     depends_on:
       - application
