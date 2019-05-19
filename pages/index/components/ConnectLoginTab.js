@@ -1,17 +1,16 @@
 import useForm from '../hooks/useForm';
 
 import { Form, Select, Input, Button } from "semantic-ui-react";
-import './ConnectManuallyTab.scss';
+import './ConnectLoginTab.scss';
 
-function ConnectManuallyTab(props) {
-  const { values, handleChange, handleSubmit } = useForm({
+function ConnectLoginTab(props) {
+  const [values, handleChange, handleSubmit] = useForm({
     username: {},
     password: {},
     version: {},
     hostname: {},
     port: {}
   }, (datas) => {
-    props.handleConnectFormSubmit(datas);
   });
 
   const versionOptions = ['1.10.2', '1.12.2'];
@@ -59,4 +58,4 @@ function ConnectManuallyTab(props) {
   );
 };
 
-export default ConnectManuallyTab;
+export default ConnectLoginTab;

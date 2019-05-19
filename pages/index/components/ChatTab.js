@@ -5,7 +5,7 @@ import { Form, Input } from 'semantic-ui-react';
 import './ChatTab.scss';
 
 function ChatTab(props) {
-  const { values, handleChange, handleSubmit } = useForm({
+  const [values, handleChange, handleSubmit] = useForm({
     message: {}
   }, ({ message }) => {
     handleChange({ target: { name: 'message', value: '' } }, {});

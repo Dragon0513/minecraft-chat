@@ -9,6 +9,7 @@ function useForm(settings, callback) {
         }
     });;
 
+
     if (!callback) {
         callback = () => { /* empty because ... */ };
     }
@@ -41,11 +42,11 @@ function useForm(settings, callback) {
         setValues(values => ({ ...values, [name]: value }));
     };
 
-    return {
+    return [
+        values,
         handleChange,
         handleSubmit,
-        values,
-    }
+    ]
 };
 
 export default useForm;
