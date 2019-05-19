@@ -10,8 +10,8 @@ RUN npm ci --only=production
 
 # copy source and build
 COPY . .
-RUN npm run build-semantic
 RUN npm run build
+RUN cp .env.example .env
 
 # start server
 CMD [ "npm", "start" ]
