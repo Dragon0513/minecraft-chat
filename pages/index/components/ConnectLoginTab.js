@@ -11,6 +11,9 @@ function ConnectLoginTab(props) {
     hostname: {},
     port: {}
   }, (datas) => {
+    if (props.socket) {
+      props.socket.emit('server:connect', { method: 'login', ...datas });
+    }
   });
 
   const versionOptions = ['1.10.2', '1.12.2'];

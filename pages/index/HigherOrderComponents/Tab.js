@@ -5,6 +5,7 @@ import './Tab.scss';
 
 function TabHOC(props) {
   const { panes, headerIndices } = generatePanes(props);
+
   const [activeIndex, setactiveIndex] = useState(props.defaultActiveIndex + 1);
   const handleTabChange = (event, data) => {
     if (headerIndices[data.activeIndex] == false) {
@@ -20,7 +21,7 @@ function TabHOC(props) {
 
   return (
     <Tab
-      id="mcc-tab-container"
+      id="mcc-tab-container" renderActiveOnly={false}
       activeIndex={activeIndex} onTabChange={handleTabChange}
       grid={{ className: "mcc-tab-grid", paneWidth: 12, tabWidth: 4 }}
       menu={{ fluid: true, pointing: true, vertical: true, inverted: props.inverted }}
@@ -41,24 +42,24 @@ function generatePanes(props) {
   }];
 
   // set menu
-  props.panes.forEach(({ menuItem, render }, index) => {
-    let _menuItem = { key: index, ...menuItem };
-    let _render = () => { };
+  props.panes.forEach(({ menuItem, paneTab }, index) => {
+    let pane = {
+      menuItem: { key: index, ...menuItem }
+    };
 
     let isHeader = false;
-    if (render != undefined && typeof render == 'function') {
-      _render = () => (
-        <Tab.Pane className="mcc-tab-pane" inverted={props.inverted} >
-          {render()}
-        </Tab.Pane>
-      );
+    if (paneTab != undefined) {
+      pane.pane = {
+        key: index, content: paneTab,
+        className: 'mcc-tab-pane', inverted: props.inverted
+      };
     } else { // if this is menu subheader
-      _menuItem = { ..._menuItem, as: Header, header: true };
+      pane.menuItem = { ...pane.menuItem, as: Header, header: true };
       isHeader = true;
     }
 
     headerIndices.push(isHeader)
-    panes.push({ menuItem: _menuItem, render: _render });
+    panes.push(pane);
   });
 
   return { panes, headerIndices };

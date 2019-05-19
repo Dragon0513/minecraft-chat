@@ -1,35 +1,55 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useForm from '../hooks/useForm';
+import useAutoScroll from '../hooks/useAutoScroll';
 
 import { Form, Input } from 'semantic-ui-react';
 import './ChatTab.scss';
 
 function ChatTab(props) {
+  const [displayMessages, setDisplayMessages] = useState([]);
+
   const [values, handleChange, handleSubmit] = useForm({
     message: {}
   }, ({ message }) => {
     handleChange({ target: { name: 'message', value: '' } }, {});
-    props.handleMessageInputSubmit({ message });
+    if (props.socket) {
+      props.socket.emit('chat', { message });
+    }
   });
 
-  const autoScroll = useRef(true);
-  const handleMessagesScroll = ({ target }) => {
-    const height = target.scrollHeight || 0;
-    const offset = target.offsetHeight + target.scrollTop || 0;
-    autoScroll.current = (offset + 2 >= height && height >= offset - 2) ? true : false;
+  const [messagesBoxRef, handleMessagesScroll] = useAutoScroll(displayMessages);
+
+  const historyMessages = useRef([]);
+  const handleRecvMessage = (message) => {
+    historyMessages.current = historyMessages.current.concat(message);
+    const sliceMessages = historyMessages.current;
+    setDisplayMessages(sliceMessages.slice(Math.max(sliceMessages.length - 200, 0)));
   }
 
-  const messagesBoxRef = useRef(null);
   useEffect(() => {
-    if (autoScroll.current) {
-      messagesBoxRef.current.scrollTop = messagesBoxRef.current.scrollHeight;
+    if (props.socket) {
+      props.socket.on('buffer:info', handleRecvMessage);
+      props.socket.on('buffer:error', handleRecvMessage);
+      props.socket.on('buffer:success', handleRecvMessage);
+      props.socket.on('buffer:message', handleRecvMessage);
     }
-  }, [props.messages]);
+  }, [props.socket]);
+
+  useEffect(() => {
+    return () => {
+      if (props.socket) {
+        props.socket.off('buffer:info', handleRecvMessage);
+        props.socket.off('buffer:error', handleRecvMessage);
+        props.socket.off('buffer:success', handleRecvMessage);
+        props.socket.off('buffer:message', handleRecvMessage);
+      }
+    }
+  }, []);
 
   return (
     <div id="chat-container" >
       <div ref={messagesBoxRef} className="messages-box" onScroll={handleMessagesScroll}>
-        {props.messages.map((message, index) => (
+        {displayMessages.map((message, index) => (
           <div key={index} dangerouslySetInnerHTML={{ __html: message }}></div>
         ))}
       </div>
