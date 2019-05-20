@@ -1,0 +1,7 @@
+static/minecraft-font/* linguist-vendored
+semantic/* linguist-vendored
+
+static/semantic/* linguist-generated=true
+package-lock.json linguist-generated=true
+
+docs/* linguist-documentation
