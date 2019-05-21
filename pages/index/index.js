@@ -6,6 +6,7 @@ import TabHOC from './HigherOrderComponents/Tab';
 import ChatTab from './components/ChatTab';
 import ConnectRecentTab from './components/ConnectRecentTab';
 import ConnectLoginTab from './components/ConnectLoginTab';
+import PlayerStateTab from './components/PlayerStateTab';
 import SettingTab from './components/SettingTab';
 
 import './index.scss';
@@ -79,6 +80,12 @@ class IndexContainer extends React.Component {
               {
                 menuItem: { content: 'Chat', icon: 'chat' },
                 paneTab: (<ChatTab
+                  socket={this.props.socket}
+                  dark_mode={this.state.dark_mode}
+                />)
+              }, {
+                menuItem: { content: 'State', icon: 'info' },
+                paneTab: (<PlayerStateTab
                   socket={this.props.socket}
                   dark_mode={this.state.dark_mode}
                 />)
