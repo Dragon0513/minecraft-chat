@@ -1,4 +1,6 @@
 {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shell.osx": "/bin/bash",
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,

@@ -9,6 +9,8 @@ services:
     ports:
       - '3000:3000'
       - '25565:25565'
+    networks:
+       - minecraft-chat
     depends_on:
       - database
   database:
@@ -16,6 +18,8 @@ services:
     container_name: minecraft-chat-database
     ports:
       - '27017:27017'
+    networks:
+       - minecraft-chat
   minecraft-server:
     image: 'itzg/minecraft-server:latest'
     container_name: minecraft-test-server
@@ -26,3 +30,6 @@ services:
     network_mode: "service:application"
     depends_on:
       - application
+networks:
+  minecraft-chat:
+    driver: bridge
