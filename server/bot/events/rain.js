@@ -6,7 +6,7 @@ module.exports = (socket) => {
 		if (socket.mcbot.entity.isRaining) {
 			socket.emit('buffer:info', `It started raining.`);
 		} else {
-			socket.emit('buffer:info', `It stopped raining. `);
+			socket.emit('buffer:info', `It stopped raining.`);
 		}
 	};
 

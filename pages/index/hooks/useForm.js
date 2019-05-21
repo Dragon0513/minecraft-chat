@@ -26,16 +26,9 @@ function useForm(settings, callback) {
             event.persist();
         }
 
-        let name = '', value = '';
-        if (event.target) {
-            name = event.target.name || data.name;
-            value = event.target.value;
-            if (event.target.value == null || event.target.value == undefined) {
-                value = data.value || data.checked
-            }
-        }
+        const name = data.name, value = data.value || data.checked;
 
-        if (typeof settings[name].handleChange === "function") {
+        if (settings[name] && typeof settings[name].handleChange === "function") {
             settings[name].handleChange(value);
         }
 

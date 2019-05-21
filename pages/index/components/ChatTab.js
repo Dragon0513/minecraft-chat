@@ -11,7 +11,7 @@ function ChatTab(props) {
   const [values, handleChange, handleSubmit] = useForm({
     message: {}
   }, ({ message }) => {
-    handleChange({ target: { name: 'message', value: '' } }, {});
+    handleChange({}, { name: 'message', value: '' });
     if (props.socket) {
       props.socket.emit('chat', { message });
     }
