@@ -19,7 +19,7 @@ function ConnectLoginTab(props) {
   const versionOptions = ['1.10.2', '1.12.2'];
 
   return (
-    <div id="connect-manually-container" >
+    <div id="connect-manually-container" className="mcc-tab-container">
       <Form onSubmit={handleSubmit} inverted={props.dark_mode}>
         <Form.Group>
           <Form.Field

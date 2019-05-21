@@ -47,7 +47,7 @@ function ChatTab(props) {
   }, []);
 
   return (
-    <div id="chat-container" >
+    <div id="chat-container" className="mcc-tab-container">
       <div ref={messagesBoxRef} className="messages-box" onScroll={handleMessagesScroll}>
         {displayMessages.map((message, index) => (
           <div key={index} dangerouslySetInnerHTML={{ __html: message }}></div>

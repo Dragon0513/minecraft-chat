@@ -14,7 +14,7 @@ function ConnectRecentTab(props) {
   }, (datas) => { });
 
   return (
-    <div id="connect-quickly-container" >
+    <div id="connect-quickly-container" className="mcc-tab-container">
       <Header inverted={props.dark_mode} size='huge'>Profiles</Header>
       <Divider inverted={props.dark_mode}></Divider>
       <Table size='large' celled striped inverted={props.dark_mode}>

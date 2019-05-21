@@ -4,7 +4,7 @@ import { Form, Checkbox } from "semantic-ui-react";
 import './SettingTab.scss';
 
 function SettingTab(props) {
-  const  [ values, handleChange, handleSubmit ] = useForm({
+  const [values, handleChange, handleSubmit] = useForm({
     dark_mode: {
       default: props.dark_mode,
       handleChange: props.handleSettingDarkModeChange
@@ -12,7 +12,7 @@ function SettingTab(props) {
   });
 
   return (
-    <div id="setting-container" >
+    <div id="setting-container" className="mcc-tab-container" >
       <Form onSubmit={handleSubmit} inverted={props.dark_mode}>
         <Form.Group>
           <Form.Field
