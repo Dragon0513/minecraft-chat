@@ -10,9 +10,9 @@ function ConnectLoginTab(props) {
     version: {},
     hostname: {},
     port: {}
-  }, (datas) => {
+  }, (data) => {
     if (props.socket) {
-      props.socket.emit('server:connect', { method: 'login', ...datas });
+      props.socket.emit('server:connect', { method: 'password', ...data });
     }
   });
 

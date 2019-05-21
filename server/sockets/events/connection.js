@@ -20,17 +20,29 @@ module.exports = (socket) => {
       return;
     }
 
-    // create a mineflayer bot and store it in the client's socket
-    socket.mcbot = await mineflayer.createBot({
+    let connectionParams = {
       host: data.hostname,
       port: data.port,
-      username: data.username,
-      password: data.password,
-      version: data.version || "1.12.2"
-    });
+      username: data.username
+    };
+    if (data.method === 'password') {
+      connectionParams = {
+        ...connectionParams,
+        password: data.password,
+        version: data.version || "1.12.2"
+      };
+    } else if (data.method === 'session') {
+      connectionParams = {
+        ...connectionParams,
+        session: session
+      };
+    }
+
+    // create a mineflayer bot and store it in the client's socket
+    socket.mcbot = await mineflayer.createBot(connectionParams);
 
     // store connection params in socket
-    socket.connectionParams = data;
+    socket.connectionParams = connectionParams;
 
     // bind bot events
     events(socket);
