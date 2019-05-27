@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-import { Header, Progress } from 'semantic-ui-react';
+import { Header, Progress, Table } from 'semantic-ui-react';
 import './PlayerStateTab.scss';
 
 function PlayerStateTab(props) {
@@ -9,14 +9,21 @@ function PlayerStateTab(props) {
     setPosition(datas);
   }
 
-  const [Health, setHealth] = useState({ food: 0, health: 0, Saturation: 0 });
-  const handleRecvHealth = (datas) => {
-    setHealth(datas);
+  const [Hud, setHud] = useState({
+    food: 0,
+    health: 0,
+    saturation: 0,
+    level: 0,
+    progress: 0,
+    points: 0
+  });
+  const handleRecvHud = (datas) => {
+    setHud(datas);
   }
 
   useEffect(() => {
     if (props.socket) {
-      props.socket.on('bot:health', handleRecvHealth);
+      props.socket.on('bot:hud', handleRecvHud);
       props.socket.on('bot:move', handleRecvMove);
       props.socket.on('bot:forcedMove', handleRecvMove);
     }
@@ -25,7 +32,7 @@ function PlayerStateTab(props) {
   useEffect(() => {
     return () => {
       if (props.socket) {
-        props.socket.off('bot:health', handleRecvHealth);
+        props.socket.off('bot:hud', handleRecvHud);
         props.socket.off('bot:move', handleRecvMove);
         props.socket.off('bot:forcedMove', handleRecvMove);
       }
@@ -34,13 +41,63 @@ function PlayerStateTab(props) {
 
   return (
     <div id="playerstate-container" className="mcc-tab-container" >
-      <Header inverted>Position: X:{Position.x}, Y:{Position.y}, Z:{Position.z}</Header>
-      <Header inverted>Health: {Health.health}/20</Header>
-      <Progress value={Health.health} total='20' attached='bottom' color='red' />
-      <Header inverted>Food: {Health.food}/20</Header>
-      <Progress value={Health.food} total='20' attached='bottom' color='orange' />
-      <Header inverted>Saturation: {Health.Saturation}/5</Header>
-      <Progress value={Health.Saturation} total='5' attached='bottom' color='orange' />
+      <Header inverted={props.dark_mode}>Position</Header>
+      <Table definition inverted={props.dark_mode}>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell width={2}>X</Table.Cell>
+            <Table.Cell>{Position.x}</Table.Cell>
+            <Table.Cell>({Math.floor(Position.x / 16)})</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Y</Table.Cell>
+            <Table.Cell>{Position.y}</Table.Cell>
+            <Table.Cell>({Math.floor(Position.y / 16)})</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Z</Table.Cell>
+            <Table.Cell>{Position.z}</Table.Cell>
+            <Table.Cell>({Math.floor(Position.z / 16)})</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+      <Header inverted={props.dark_mode}>Health</Header>
+      <Table definition inverted={props.dark_mode}>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell width={2}>Health</Table.Cell>
+            <Table.Cell width={1} textAlign='right'>{Hud.health}/20</Table.Cell>
+            <Table.Cell>
+              <Progress
+                value={Hud.health} total='20' color='red' />
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Food</Table.Cell>
+            <Table.Cell textAlign='right'>{Hud.food}/20</Table.Cell>
+            <Table.Cell>
+              <Progress
+                value={Hud.food} total='20' color='orange' />
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Saturation</Table.Cell>
+            <Table.Cell textAlign='right'>{Hud.saturation}/5</Table.Cell>
+            <Table.Cell>
+              <Progress
+                value={Hud.saturation} total='5' color='orange' />
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Level</Table.Cell>
+            <Table.Cell textAlign='right'>{Hud.level}</Table.Cell>
+            <Table.Cell>
+              <Progress
+                value={Hud.progress} total='1' color='green' progress='percent' />
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
     </div >
   );
 };

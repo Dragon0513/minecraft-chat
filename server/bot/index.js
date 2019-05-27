@@ -6,7 +6,7 @@ const message = require('./events/message');
 const end = require('./events/end');
 const death = require('./events/death');
 const rain = require('./events/rain');
-const health = require('./events/health');
+const hud = require('./events/hud');
 const move = require('./events/move');
 const kicked = require('./events/kicked');
 
@@ -21,6 +21,6 @@ module.exports = (socket) => {
   death(socket);
   rain(socket);
   move(socket);
-  health(socket);
+  hud(socket);
   kicked(socket);
 };
