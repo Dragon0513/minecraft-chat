@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useForm from '../hooks/useForm';
 
 import { Header, Divider, Table, Checkbox } from "semantic-ui-react";
@@ -32,7 +31,7 @@ function ConnectRecentTab(props) {
               <Table.Cell collapsing textAlign='center'>
                 <Checkbox
                   radio fitted
-                  name='id' value={profile._id}
+                  name='id' value={profile._id.toString()}
                   checked={Username.id === profile._id}
                   onChange={handleUsernameChange}
                 /></Table.Cell>
@@ -61,7 +60,7 @@ function ConnectRecentTab(props) {
               <Table.Cell collapsing textAlign='center'>
                 <Checkbox
                   radio fitted
-                  name='id' value={server._id}
+                  name='id' value={server._id.toString()}
                   checked={Hostname.id === server._id}
                   onChange={handleHostnameChange}
                 /></Table.Cell>

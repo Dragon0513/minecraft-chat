@@ -1,4 +1,5 @@
 import useForm from '../hooks/useForm';
+import { supportedVersions } from '../../../server/utils/supportVersion';
 
 import { Form, Select, Input, Button } from "semantic-ui-react";
 import './ConnectLoginTab.scss';
@@ -15,8 +16,6 @@ function ConnectLoginTab(props) {
       props.socket.emit('server:connect', { method: 'password', ...data });
     }
   });
-
-  const versionOptions = ['1.10.2', '1.12.2'];
 
   return (
     <div id="connect-manually-container" className="mcc-tab-container">
@@ -36,7 +35,7 @@ function ConnectLoginTab(props) {
         <Form.Group>
           <Form.Field
             required fluid width={4} control={Select}
-            options={versionOptions.map((version) => {
+            options={supportedVersions.map((version) => {
               return { key: version, text: version, value: version };
             })}
             label={{ children: 'Version', htmlFor: 'form-select-control-version' }}
