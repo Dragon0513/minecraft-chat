@@ -26,13 +26,23 @@ function useForm(settings, callback) {
             event.persist();
         }
 
-        const name = data.name || 'him', value = data.value || data.checked || '';
+        const name = data.name || 'him';
+        let value = null;
+        if (data.value === undefined || data.value === null) {
+            value = data.checked || false;
+        } else if (typeof data.value === 'number') {
+            value = data.value || 0;
+        } else if (typeof data.value === 'string') {
+            value = data.value || '';
+        }
 
         if (settings[name] && typeof settings[name].handleChange === "function") {
             settings[name].handleChange(value);
         }
 
-        setValues(values => ({ ...values, [name]: value }));
+        if (value !== null) {
+            setValues(values => ({ ...values, [name]: value }));
+        }
     };
 
     return [
