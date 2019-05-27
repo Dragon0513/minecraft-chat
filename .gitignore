@@ -25,6 +25,7 @@ dockers/minecraft-server/server.properties
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
 
 # semantic ui
 semantic/tasks
