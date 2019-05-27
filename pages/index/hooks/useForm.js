@@ -26,7 +26,7 @@ function useForm(settings, callback) {
             event.persist();
         }
 
-        const name = data.name, value = data.value || data.checked;
+        const name = data.name || 'him', value = data.value || data.checked || '';
 
         if (settings[name] && typeof settings[name].handleChange === "function") {
             settings[name].handleChange(value);
