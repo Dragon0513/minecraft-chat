@@ -9,7 +9,7 @@ function ConnectLoginTab(props) {
     username: {},
     password: {},
     version: {},
-    hostname: {},
+    host: {},
     port: {}
   }, (data) => {
     if (props.socket) {
@@ -46,7 +46,7 @@ function ConnectLoginTab(props) {
           <Form.Field
             label='Server Address'
             required fluid width={8} control={Input} type='text'
-            name='hostname' value={values.hostname} onChange={handleChange}
+            name='host' value={values.host} onChange={handleChange}
           />
           <Form.Field
             label='Port'

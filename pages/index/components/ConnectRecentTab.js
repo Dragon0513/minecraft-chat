@@ -1,76 +1,56 @@
 import useForm from '../hooks/useForm';
 
-import { Header, Divider, Table, Checkbox } from "semantic-ui-react";
+import { Header, Divider, Form, Button } from "semantic-ui-react";
+import CheckTableHOC from '../HigherOrderComponents/CheckTable';
 
 import './ConnectRecentTab.scss';
 
 function ConnectRecentTab(props) {
-  const [Username, handleUsernameChange, handleUsernameSubmit] = useForm({
-    id: {}
-  }, (datas) => { });
-  const [Hostname, handleHostnameChange, handleHostnameSubmit] = useForm({
-    id: {}
-  }, (datas) => { });
+  const [indeies, handleChange, handleSubmit] = useForm({
+    profile: {},
+    server: {}
+  }, (indeies) => {
+    if (props.socket) {
+      const send_datas = {
+        _id: props.profiles[indeies.profile]._id,
+        username: props.profiles[indeies.profile].username,
+        host: props.servers[indeies.server].host,
+        port: props.servers[indeies.server].port,
+        version: props.servers[indeies.server].version,
+      };
+      props.socket.emit('server:connect', { method: 'session', ...send_datas });
+    }
+  });
 
   return (
     <div id="connect-quickly-container" className="mcc-tab-container">
-      <Header inverted={props.dark_mode} size='huge'>Profiles</Header>
-      <Divider inverted={props.dark_mode}></Divider>
-      <Table size='large' celled striped inverted={props.dark_mode}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Select</Table.HeaderCell>
-            <Table.HeaderCell>Username</Table.HeaderCell>
-            <Table.HeaderCell>Client Token</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {props.profiles.map((profile) => (
-            <Table.Row key={profile._id}>
-              <Table.Cell collapsing textAlign='center'>
-                <Checkbox
-                  radio fitted
-                  name='id' value={profile._id.toString()}
-                  checked={Username.id === profile._id}
-                  onChange={handleUsernameChange}
-                /></Table.Cell>
-              <Table.Cell>{profile.username}</Table.Cell>
-              <Table.Cell>{profile.clientToken}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-      <Divider horizontal inverted={props.dark_mode}>AND</Divider>
-      <Header inverted={props.dark_mode} size='huge'>Hostname</Header>
-      <Divider inverted={props.dark_mode}></Divider>
-      <Table size='large' celled striped inverted={props.dark_mode}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Select</Table.HeaderCell>
-            <Table.HeaderCell>Hostname</Table.HeaderCell>
-            <Table.HeaderCell>Port</Table.HeaderCell>
-            <Table.HeaderCell>Version</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {props.servers.map((server) => (
-            <Table.Row key={server._id}>
-              <Table.Cell collapsing textAlign='center'>
-                <Checkbox
-                  radio fitted
-                  name='id' value={server._id.toString()}
-                  checked={Hostname.id === server._id}
-                  onChange={handleHostnameChange}
-                /></Table.Cell>
-              <Table.Cell>{server.host}</Table.Cell>
-              <Table.Cell>{server.port}</Table.Cell>
-              <Table.Cell>{server.version}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+      <Form onSubmit={handleSubmit} inverted={props.dark_mode}>
+        <Header inverted={props.dark_mode} size='huge'>Profiles</Header>
+        <Divider inverted={props.dark_mode}></Divider>
+        <CheckTableHOC
+          dark_mode={props.dark_mode}
+          name="profile" indeies={indeies}
+          handleChange={handleChange}
+          datas={props.profiles} displays={[
+            { name: 'Username', key: 'username' },
+            { name: 'Client Token', key: 'clientToken' }
+          ]}
+        />
+        <Divider horizontal inverted={props.dark_mode}>AND</Divider>
+        <Header inverted={props.dark_mode} size='huge'>Host</Header>
+        <Divider inverted={props.dark_mode}></Divider>
+        <CheckTableHOC
+          dark_mode={props.dark_mode}
+          name="server" indeies={indeies}
+          handleChange={handleChange}
+          datas={props.servers} displays={[
+            { name: 'Host', key: 'host' },
+            { name: 'Port', key: 'port' },
+            { name: 'Version', key: 'version' }
+          ]}
+        />
+        <Button type='submit' fluid color='grey'>Connect</Button>
+      </Form>
     </div>
   );
 }

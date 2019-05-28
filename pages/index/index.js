@@ -101,6 +101,7 @@ class IndexContainer extends React.Component {
               }, {
                 menuItem: { content: 'Recent', icon: 'list' },
                 paneTab: (<ConnectRecentTab
+                  socket={this.props.socket}
                   dark_mode={this.state.dark_mode}
                   profiles={this.props.profiles}
                   servers={this.props.servers}

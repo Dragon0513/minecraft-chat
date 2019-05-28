@@ -26,4 +26,8 @@ const ProfileSchema = new Schema({
     }
 });
 
+ProfileSchema.query.byID = function (_id) {
+    return this.where({ _id });
+};
+
 module.exports = ProfileSchema;

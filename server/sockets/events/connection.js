@@ -1,6 +1,7 @@
 const mineflayer = require('mineflayer');
 const moment = require('moment');
 const events = require('../../bot');
+const { Profiles } = require('../../model');
 
 module.exports = (socket) => {
 
@@ -9,10 +10,10 @@ module.exports = (socket) => {
     let timestamp = moment().format('MMM D h:mm:ss a');
 
     // log activity to console
-    console.log(`${timestamp}: connecting > ${data.hostname}:${data.port} - ${data.version} - ${data.username}`);
+    console.log(`${timestamp}: connecting > ${data.host}:${data.port} - ${data.version} - ${data.username}`);
 
     // inform user that connection is being made
-    socket.emit('buffer:info', `Connecting to ${data.version} server ${data.hostname}:${data.port}`);
+    socket.emit('buffer:info', `Connecting to ${data.version} server ${data.host}:${data.port}`);
 
     // if a bot already exists, ask user to disconnect
     if (socket.mcbot) {
@@ -21,17 +22,18 @@ module.exports = (socket) => {
     }
 
     let connectionParams = {
-      host: data.hostname,
+      username: data.username,
+      host: data.host,
       port: data.port,
-      username: data.username
+      version: data.version
     };
     if (data.method === 'password') {
       connectionParams = {
         ...connectionParams,
         password: data.password,
-        version: data.version || "1.12.2"
       };
     } else if (data.method === 'session') {
+      const session = await Profiles.findOne().byID(data._id);
       connectionParams = {
         ...connectionParams,
         session: session
