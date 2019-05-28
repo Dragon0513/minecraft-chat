@@ -61,7 +61,7 @@ function PlayerStateTab(props) {
           </Table.Row>
         </Table.Body>
       </Table>
-      <Header inverted={props.dark_mode}>Health</Header>
+      <Header inverted={props.dark_mode}>HUD</Header>
       <Table definition inverted={props.dark_mode}>
         <Table.Body>
           <Table.Row>
