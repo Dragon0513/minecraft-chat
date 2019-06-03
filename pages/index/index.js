@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Container } from "semantic-ui-react";
-import TabHOC from './HigherOrderComponents/Tab';
+import TabHOC from './components/Tab';
 
-import ChatTab from './components/ChatTab';
-import ConnectRecentTab from './components/ConnectRecentTab';
-import ConnectLoginTab from './components/ConnectLoginTab';
-import PlayerStateTab from './components/PlayerStateTab';
-import SettingTab from './components/SettingTab';
+import ChatTab from './tabs/ChatTab';
+import ConnectRecentTab from './tabs/ConnectRecentTab';
+import ConnectLoginTab from './tabs/ConnectLoginTab';
+import PlayerStateTab from './tabs/PlayerStateTab';
+import SettingTab from './tabs/SettingTab';
 
 import './index.scss';
 

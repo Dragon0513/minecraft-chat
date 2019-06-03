@@ -1,5 +1,5 @@
 {
-  "name": "minecraft-chat-next",
+  "name": "minecraft-chat",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,7 @@
     "dev": "node server/index.js",
     "build": "next build",
     "start": "NODE_ENV=production node server/index.js",
-    "build-semantic": "cd ./semantic && gulp build-css build-assets"
+    "build:semantic": "cd ./semantic && gulp build-css build-assets"
   },
   "devDependencies": {
     "fs-extra": "^7.0.1",

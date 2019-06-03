@@ -1,7 +1,7 @@
 import useForm from '../hooks/useForm';
 
 import { Header, Divider, Form, Button } from "semantic-ui-react";
-import CheckTableHOC from '../HigherOrderComponents/CheckTable';
+import CheckTableHOC from '../components/CheckTable';
 
 import './ConnectRecentTab.scss';
 
