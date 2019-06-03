@@ -4,11 +4,11 @@ import { Header, Tab } from "semantic-ui-react";
 import './Tab.scss';
 
 function TabHOC(props) {
-  const { panes, headerIndices } = generatePanes(props);
+  const { panes, tabIndices } = generatePanes(props);
 
   const [activeIndex, setactiveIndex] = useState(props.defaultActiveIndex + 1);
   const handleTabChange = (event, data) => {
-    if (headerIndices[data.activeIndex] == false) {
+    if (tabIndices[data.activeIndex] == true) {
       setactiveIndex(data.activeIndex);
     }
   }
@@ -33,7 +33,7 @@ function TabHOC(props) {
 
 function generatePanes(props) {
   // set Header
-  let headerIndices = [true];
+  let tabIndices = [true];
   let panes = [{
     menuItem: {
       key: 'header', content: 'MinecraftChat',
@@ -42,27 +42,30 @@ function generatePanes(props) {
   }];
 
   // set menu
-  props.panes.forEach(({ menuItem, paneTab }, index) => {
+  props.panes.forEach(({ type, menuItem, paneTab }, index) => {
     let pane = {
       menuItem: { key: index, ...menuItem }
     };
 
-    let isHeader = false;
-    if (paneTab != undefined) {
+    let isTab = true;
+    if (type === 'tab') {
       pane.pane = {
         key: index, content: paneTab,
         className: 'mcc-tab-pane', inverted: props.inverted
       };
-    } else { // if this is menu subheader
+    } else if (type === 'header') { // if this is menu subheader
       pane.menuItem = { ...pane.menuItem, as: Header, header: true };
-      isHeader = true;
+      isTab = false;
+    } else if (type === 'button') { // if this is menu subheader
+      pane.menuItem = { ...pane.menuItem };
+      isTab = false;
     }
 
-    headerIndices.push(isHeader)
+    tabIndices.push(isTab)
     panes.push(pane);
   });
 
-  return { panes, headerIndices };
+  return { panes, tabIndices };
 }
 
 export default TabHOC;

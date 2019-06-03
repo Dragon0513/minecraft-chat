@@ -78,12 +78,14 @@ class IndexContainer extends React.Component {
             defaultActiveIndex={0} inverted={this.state.dark_mode}
             panes={[
               {
+                type: 'tab',
                 menuItem: { content: 'Chat', icon: 'chat' },
                 paneTab: (<ChatTab
                   socket={this.props.socket}
                   dark_mode={this.state.dark_mode}
                 />)
               }, {
+                type: 'tab',
                 menuItem: { content: 'State', icon: 'info' },
                 paneTab: (<PlayerStateTab
                   socket={this.props.socket}
@@ -91,14 +93,17 @@ class IndexContainer extends React.Component {
                 />)
               },
               {
+                type: 'header',
                 menuItem: { content: 'Connection' }
               }, {
+                type: 'tab',
                 menuItem: { content: 'Login', icon: 'wpforms' },
                 paneTab: (<ConnectLoginTab
                   socket={this.props.socket}
                   dark_mode={this.state.dark_mode}
                 />)
               }, {
+                type: 'tab',
                 menuItem: { content: 'Recent', icon: 'list' },
                 paneTab: (<ConnectRecentTab
                   socket={this.props.socket}
@@ -107,8 +112,12 @@ class IndexContainer extends React.Component {
                   servers={this.props.servers}
                 />)
               }, {
+                type: 'tab',
+              }, {
+                type: 'header',
                 menuItem: { content: 'Other' }
               }, {
+                type: 'tab',
                 menuItem: { content: 'Setting', icon: 'setting' },
                 paneTab: (<SettingTab
                   dark_mode={this.state.dark_mode}
