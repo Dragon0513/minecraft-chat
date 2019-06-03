@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useIsLogin from '../hooks/useIsLogin';
 
 import { Header, Tab } from "semantic-ui-react";
 import './Tab.scss';
@@ -13,12 +14,7 @@ function TabHOC(props) {
     }
   }
 
-  useEffect(() => {
-    if (props.socket) {
-      props.socket.on('bot:connect', () => { setactiveIndex(1); });
-    }
-  }, [props.socket]);
-
+  useIsLogin(props.socket, () => { setactiveIndex(1); }, () => { setactiveIndex(1); })
   return (
     <Tab
       id="mcc-tab-container" renderActiveOnly={false}

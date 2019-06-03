@@ -1,10 +1,14 @@
 import useForm from '../hooks/useForm';
+import useIsLogin from '../hooks/useIsLogin';
 import { supportedVersions } from '../../../server/utils/supportVersion';
 
 import { Form, Select, Input, Button } from "semantic-ui-react";
 import './ConnectLoginTab.scss';
 
 function ConnectLoginTab(props) {
+  const IsLogin = useIsLogin(props.socket);
+
+
   const [values, handleChange, handleSubmit] = useForm({
     username: {},
     password: {},
@@ -12,7 +16,7 @@ function ConnectLoginTab(props) {
     host: {},
     port: {}
   }, (data) => {
-    if (props.socket) {
+    if (IsLogin == false && props.socket) {
       props.socket.emit('server:connect', { method: 'password', ...data });
     }
   });
@@ -54,7 +58,7 @@ function ConnectLoginTab(props) {
             name='port' value={values.port} onChange={handleChange}
           />
         </Form.Group>
-        <Button type='submit' fluid color='grey'>Connect</Button>
+        <Button type='submit' fluid color='grey' disabled={IsLogin}>Connect</Button>
       </Form>
     </div>
   );

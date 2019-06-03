@@ -1,4 +1,5 @@
 import useForm from '../hooks/useForm';
+import useIsLogin from '../hooks/useIsLogin';
 
 import { Header, Divider, Form, Button } from "semantic-ui-react";
 import CheckTableHOC from '../components/CheckTable';
@@ -6,11 +7,13 @@ import CheckTableHOC from '../components/CheckTable';
 import './ConnectRecentTab.scss';
 
 function ConnectRecentTab(props) {
+  const IsLogin = useIsLogin(props.socket);
+
   const [indeies, handleChange, handleSubmit] = useForm({
     profile: {},
     server: {}
   }, (indeies) => {
-    if (props.socket) {
+    if (IsLogin == false && props.socket) {
       const send_datas = {
         _id: props.profiles[indeies.profile]._id,
         username: props.profiles[indeies.profile].username,
@@ -49,7 +52,7 @@ function ConnectRecentTab(props) {
             { name: 'Version', key: 'version' }
           ]}
         />
-        <Button type='submit' fluid color='grey'>Connect</Button>
+        <Button type='submit' fluid color='grey' disabled={IsLogin}>Connect</Button>
       </Form>
     </div>
   );

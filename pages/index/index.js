@@ -6,6 +6,7 @@ import TabHOC from './components/Tab';
 import ChatTab from './tabs/ChatTab';
 import ConnectRecentTab from './tabs/ConnectRecentTab';
 import ConnectLoginTab from './tabs/ConnectLoginTab';
+import DisconnectTab from './tabs/DisconnectTab';
 import PlayerStateTab from './tabs/PlayerStateTab';
 import SettingTab from './tabs/SettingTab';
 
@@ -113,6 +114,11 @@ class IndexContainer extends React.Component {
                 />)
               }, {
                 type: 'tab',
+                menuItem: { content: 'Disconnect', icon: 'list' },
+                paneTab: (<DisconnectTab
+                  dark_mode={this.state.dark_mode}
+                  socket={this.props.socket}
+                />)
               }, {
                 type: 'header',
                 menuItem: { content: 'Other' }
