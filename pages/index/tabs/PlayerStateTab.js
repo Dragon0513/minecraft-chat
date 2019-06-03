@@ -21,11 +21,16 @@ function PlayerStateTab(props) {
     setHud(datas);
   }
 
+  const handleDisconnect = () => {
+    setHud({ food: 0, health: 0, saturation: 0, level: 0, progress: 0, points: 0 });
+  }
+
   useEffect(() => {
     if (props.socket) {
       props.socket.on('bot:hud', handleRecvHud);
       props.socket.on('bot:move', handleRecvMove);
       props.socket.on('bot:forcedMove', handleRecvMove);
+      props.socket.on('bot:disconnect', handleDisconnect);
     }
   }, [props.socket]);
 
@@ -35,6 +40,7 @@ function PlayerStateTab(props) {
         props.socket.off('bot:hud', handleRecvHud);
         props.socket.off('bot:move', handleRecvMove);
         props.socket.off('bot:forcedMove', handleRecvMove);
+        props.socket.on('bot:disconnect', handleDisconnect);
       }
     }
   }, []);

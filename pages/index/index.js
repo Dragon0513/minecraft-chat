@@ -98,7 +98,7 @@ class IndexContainer extends React.Component {
                 menuItem: { content: 'Connection' }
               }, {
                 type: 'tab',
-                menuItem: { content: 'Login', icon: 'wpforms' },
+                menuItem: { content: 'Login', icon: 'sign in' },
                 paneTab: (<ConnectLoginTab
                   socket={this.props.socket}
                   dark_mode={this.state.dark_mode}
@@ -114,7 +114,7 @@ class IndexContainer extends React.Component {
                 />)
               }, {
                 type: 'tab',
-                menuItem: { content: 'Disconnect', icon: 'list' },
+                menuItem: { content: 'Disconnect', icon: 'sign out' },
                 paneTab: (<DisconnectTab
                   dark_mode={this.state.dark_mode}
                   socket={this.props.socket}
