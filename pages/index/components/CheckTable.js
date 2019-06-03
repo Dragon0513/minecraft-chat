@@ -10,7 +10,12 @@ import './CheckTable.scss';
  * />
 */
 
+
 function CheckTableHOC(props) {
+  const handleClick = (index) => {
+    props.handleChange({}, { name: props.name, value: index });
+  }
+
   return (
     <Table size='large' celled striped inverted={props.dark_mode}>
       <Table.Header>
@@ -23,13 +28,11 @@ function CheckTableHOC(props) {
       </Table.Header>
       <Table.Body>
         {props.datas.map((data, index) => (
-          <Table.Row key={index}>
+          <Table.Row key={index} onClick={() => handleClick(index.toString())}>
             <Table.Cell collapsing textAlign='center'>
               <Checkbox
                 radio fitted
-                name={props.name} value={index.toString()}
                 checked={props.indeies[props.name] === index.toString()}
-                onChange={props.handleChange}
               />
             </Table.Cell>
             {props.displays.map((display, index) => (

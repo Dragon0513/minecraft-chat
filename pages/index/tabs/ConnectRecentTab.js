@@ -22,6 +22,9 @@ function ConnectRecentTab(props) {
         version: props.servers[indeies.server].version,
       };
       props.socket.emit('server:connect', { method: 'session', ...send_datas });
+
+      handleChange({}, { name: 'profile', value: '-1' });
+      handleChange({}, { name: 'server', value: '-1' });
     }
   });
 
