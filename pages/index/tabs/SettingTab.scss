@@ -1,2 +1,7 @@
 #setting-container {
+    .ui.inverted.form {
+        .ui.toggle.checkbox input:checked~label {
+            color: rgba(255, 255, 255, .9) !important;
+        }
+    }
 }

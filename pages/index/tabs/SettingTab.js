@@ -16,7 +16,7 @@ function SettingTab(props) {
       <Form onSubmit={handleSubmit} inverted={props.dark_mode}>
         <Form.Group>
           <Form.Field
-            label='Dark Mode'
+            label='Dark Mode' toggle
             required width={16} control={Checkbox}
             type='checkbox' checked={values.dark_mode}
             name='dark_mode' onChange={handleChange}

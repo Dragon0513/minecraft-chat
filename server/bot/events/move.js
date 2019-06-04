@@ -15,7 +15,7 @@ module.exports = (socket) => {
     if (!socket.mcbot) { return; }
 
     var pos = socket.mcbot.entity.position;
-    socket.emit('bot:forcedMove', { x: pos.x.toFixed(2), y: pos.y.toFixed(2), z: pos.z.toFixed(2) });
+    socket.emit('bot:move', { x: pos.x.toFixed(2), y: pos.y.toFixed(2), z: pos.z.toFixed(2) });
   };
 
   socket.mcbot.on('forcedMove', onforcedMove);
