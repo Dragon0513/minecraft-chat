@@ -5,7 +5,8 @@ node_modules
 test_*
 coverage
 
-# minecraft
+# docker
+dockers/**/docker-compose.yml
 dockers/minecraft-server/server.properties
 
 # production build
