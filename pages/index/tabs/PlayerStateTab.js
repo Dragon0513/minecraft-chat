@@ -1,12 +1,21 @@
 import { useState, useEffect } from 'react';
 
-import { Header, Progress, Table } from 'semantic-ui-react';
+import { Header, Progress, Table, Image } from 'semantic-ui-react';
 import './PlayerStateTab.scss';
+
+import { effectData } from '../datas/effects.json';
 
 function PlayerStateTab(props) {
   const [Position, setPosition] = useState({ x: 0, y: 0, z: 0 });
   const handleRecvMove = (datas) => {
     setPosition(datas);
+  }
+
+  const [Effects, setEffects] = useState(Array.apply(null, Array(32)).map(() => false));
+  const handleRecvEffect = (effect) => {
+    let newEffects = Effects;
+    newEffects[parseInt(effect.id, 10) - 1] = !effect.isEnd;
+    setEffects([...newEffects]);
   }
 
   const [Hud, setHud] = useState({
@@ -29,8 +38,8 @@ function PlayerStateTab(props) {
     if (props.socket) {
       props.socket.on('bot:hud', handleRecvHud);
       props.socket.on('bot:move', handleRecvMove);
-      props.socket.on('bot:forcedMove', handleRecvMove);
       props.socket.on('bot:disconnect', handleDisconnect);
+      props.socket.on('bot:effect', handleRecvEffect);
     }
   }, [props.socket]);
 
@@ -39,8 +48,8 @@ function PlayerStateTab(props) {
       if (props.socket) {
         props.socket.off('bot:hud', handleRecvHud);
         props.socket.off('bot:move', handleRecvMove);
-        props.socket.off('bot:forcedMove', handleRecvMove);
-        props.socket.on('bot:disconnect', handleDisconnect);
+        props.socket.off('bot:disconnect', handleDisconnect);
+        props.socket.off('bot:effect', handleRecvEffect);
       }
     }
   }, []);
@@ -104,7 +113,18 @@ function PlayerStateTab(props) {
           </Table.Row>
         </Table.Body>
       </Table>
-    </div >
+      <Header inverted={props.dark_mode}>Effect</Header>
+      <Image.Group size='tiny'>
+        {Effects.map((effect, index) => {
+          if (effect) {
+            return (<Image key={index}
+              src={`/static/mc-effect/${index + 1}.png`}
+              title={effectData[index].displayName}
+            />)
+          }
+        })}
+      </Image.Group>
+    </div>
   );
 };
 

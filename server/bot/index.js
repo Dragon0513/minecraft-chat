@@ -9,6 +9,7 @@ const rain = require('./events/rain');
 const hud = require('./events/hud');
 const move = require('./events/move');
 const kicked = require('./events/kicked');
+const effect = require('./events/effect');
 
 // bind all listeners to the bot
 module.exports = (socket) => {
@@ -23,4 +24,5 @@ module.exports = (socket) => {
   move(socket);
   hud(socket);
   kicked(socket);
+  effect(socket);
 };
