@@ -5,5 +5,10 @@
 	"service": "application",
 	"workspaceFolder": "/usr/src/app",
 	"shutdownAction": "stopCompose",
-	"extensions": []
+	"extensions": [
+		"michelemelluso.code-beautifier",
+		"christian-kohler.path-intellisense",
+		"christian-kohler.npm-intellisense",
+		"eg2.vscode-npm-script"
+	]
 }
