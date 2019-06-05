@@ -2,11 +2,15 @@ import { Table, Checkbox } from "semantic-ui-react";
 import './CheckTable.scss';
 
 /** 
- * <Table
- *  dark_mode={props.dark_mode}
- *  name="" indeies={indeies}
- *  datas={}
- *  onChange={handleChange}
+ * <CheckTableHOC
+ *  dark_mode={Bool}
+ *  name={String}         => value name
+ *  indeies={Object}      => current index value
+ *  datas={Object}        => display data
+ *  displays={[           => display setting
+ *    {name: String, key: String},...
+ *  ]}
+ *  onChange={Function}   => when value change
  * />
 */
 

@@ -4,6 +4,15 @@ import useIsLogin from '../hooks/useIsLogin';
 import { Header, Tab } from "semantic-ui-react";
 import './Tab.scss';
 
+/** 
+ * <TabHOC
+ *  inverted={Bool}
+ *  socket={socket}
+ *  defaultActiveIndex={Int}
+ *  panes={Object}
+ * />
+*/
+
 function TabHOC(props) {
   const { panes, tabIndices } = generatePanes(props);
 
