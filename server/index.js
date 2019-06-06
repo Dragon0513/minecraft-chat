@@ -3,15 +3,8 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const port = parseInt(process.env.PORT, 10) || 3000;
 
-// MongoDB
-const mongoose = require('mongoose');
-const model = require('./model')
-const { MONGO_HOST, MONGO_PORT, MONGO_NAME } = process.env;
-const mongo_path = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_NAME}`
-mongoose.Promise = Promise;
-mongoose.connect(mongo_path, { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+// database
+const lowdb = require('./database');
 
 // express server
 const app = require('express')();
@@ -33,12 +26,11 @@ nextApp.prepare().then(() => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json());
   app.use((req, res, next) => {
-    req.db = db;
     next()
   });
 
   app.get('*', (req, res) => {
-    req.model = model;
+    req.lowdb = lowdb;
     return nextHandler(req, res);
   });
 

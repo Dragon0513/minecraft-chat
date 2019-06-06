@@ -10,6 +10,7 @@
     "express": "^4.15.2",
     "file-loader": "^3.0.1",
     "isomorphic-unfetch": "^2.0.0",
+    "lowdb": "^1.0.0",
     "mineflayer": "^2.8.0",
     "moment": "^2.24.0",
     "mongoose": "^5.5.8",

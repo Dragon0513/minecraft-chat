@@ -1,7 +1,7 @@
 const mineflayer = require('mineflayer');
 const moment = require('moment');
 const events = require('../../bot');
-const { Profiles } = require('../../model');
+const lowdb = require('../../database');
 
 module.exports = (socket) => {
 
@@ -33,7 +33,7 @@ module.exports = (socket) => {
         password: data.password,
       };
     } else if (data.method === 'session') {
-      const session = await Profiles.findOne().byID(data._id);
+      const session = lowdb.profiles.get.byId(data._id);
       connectionParams = {
         ...connectionParams,
         session: session

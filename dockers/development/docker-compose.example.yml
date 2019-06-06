@@ -9,26 +9,12 @@ services:
     volumes:
       - ../..:/usr/src/app
       - ~/.gitconfig:/root/.gitconfig
-      - ~/.bashrc:/root/.bashrc
-      - ~/.bash_aliases:/root/.bash_aliases
-      - ~/.bash_profile:/root/.bash_profile
-      - ~/.inputrc:/root/.inputrc
-      - ~/.dircolors:/root/.dircolors
     ports:
       - '3000:3000'
       - '25565:25565'
     networks:
        - minecraft-chat
-    command: sleep infinity 
-    depends_on:
-      - database
-  database:
-    image: mongo:latest
-    container_name: minecraft-chat-database
-    ports:
-      - '27017:27017'
-    networks:
-       - minecraft-chat
+    command: sleep infinity
   minecraft-server:
     image: 'itzg/minecraft-server:latest'
     container_name: minecraft-test-server

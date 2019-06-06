@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { Servers } = require('../../model');
+const lowdb = require('../../database');
 
 module.exports = (socket) => {
 
@@ -19,11 +19,9 @@ module.exports = (socket) => {
     });
     console.log(`${timestamp}: logged in > ${socket.connectionParams.host}:${socket.connectionParams.port} - Username: ${socket.mcbot.username}`);
 
-    Servers.updateMany(hostdata, {
+    lowdb.servers.insert({
       ...hostdata,
       version: socket.connectionParams.version
-    }, { upsert: true }, (err) => {
-      if (err) throw (err);
     });
   };
 

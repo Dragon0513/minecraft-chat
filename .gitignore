@@ -30,3 +30,6 @@ package-lock.json
 
 # semantic ui
 semantic/tasks
+
+#database
+server/database/data.json

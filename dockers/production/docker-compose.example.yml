@@ -11,15 +11,6 @@ services:
       - '25565:25565'
     networks:
        - minecraft-chat
-    depends_on:
-      - database
-  database:
-    image: mongo:latest
-    container_name: minecraft-chat-database
-    ports:
-      - '27017:27017'
-    networks:
-       - minecraft-chat
   minecraft-server:
     image: 'itzg/minecraft-server:latest'
     container_name: minecraft-test-server

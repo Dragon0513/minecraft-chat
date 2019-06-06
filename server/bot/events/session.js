@@ -1,4 +1,4 @@
-const { Profiles } = require('../../model');
+const lowdb = require('../../database');
 
 module.exports = (socket) => {
 
@@ -12,11 +12,9 @@ module.exports = (socket) => {
       }
     }
 
-    Profiles.updateMany({ username: socket.connectionParams.username }, {
+    lowdb.profiles.insert({
       username: socket.connectionParams.username,
       ...profile,
-    }, { upsert: true }, (err) => {
-      if (err) throw (err);
     });
   }
 
