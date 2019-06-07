@@ -1,5 +1,5 @@
 const moment = require('moment');
-const lowdb = require('../../database');
+const lowdb = require('../../lowdb');
 
 module.exports = (socket) => {
 

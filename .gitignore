@@ -33,4 +33,4 @@ package-lock.json
 semantic/tasks
 
 #database
-server/database/data.json
+server/lowdb/data.json

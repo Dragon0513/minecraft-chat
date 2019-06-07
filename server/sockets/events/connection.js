@@ -1,7 +1,7 @@
 const mineflayer = require('mineflayer');
 const moment = require('moment');
 const events = require('../../bot');
-const lowdb = require('../../database');
+const lowdb = require('../../lowdb');
 
 module.exports = (socket) => {
 

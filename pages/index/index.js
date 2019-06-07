@@ -14,15 +14,8 @@ import './index.scss';
 
 class IndexContainer extends React.Component {
   static async getInitialProps({ req }) {
-    if (req && req.lowdb) {
-      const __profiles = req.lowdb.profiles.get.all();
-      const profiles = __profiles.map(profile => ({
-        ...profile,
-        clientToken: profile.clientToken.split('-')[0]
-      }));
-
-      const servers = req.lowdb.servers.get.all();
-
+    if (req && req.db) {
+      const { profiles, servers } = Object.assign({ profiles: [], servers: [] }, req.db);
       return { profiles, servers };
     }
 

@@ -4,7 +4,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const port = parseInt(process.env.PORT, 10) || 3000;
 
 // database
-const lowdb = require('./database');
+const lowdb = require('./lowdb');
 
 // express server
 const app = require('express')();
@@ -29,8 +29,18 @@ nextApp.prepare().then(() => {
     next()
   });
 
+  app.get('/', (req, res) => {
+    const profiles = lowdb.profiles.get.all().map(profile => ({
+      ...profile,
+      clientToken: profile.clientToken.split('-')[0]
+    }));
+    const servers = lowdb.servers.get.all();
+    req.db = { profiles, servers };
+
+    return nextHandler(req, res);
+  });
+
   app.get('*', (req, res) => {
-    req.lowdb = lowdb;
     return nextHandler(req, res);
   });
 

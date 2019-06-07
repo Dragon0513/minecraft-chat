@@ -1,4 +1,4 @@
-const lowdb = require('../../database');
+const lowdb = require('../../lowdb');
 
 module.exports = (socket) => {
 

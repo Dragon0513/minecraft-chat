@@ -80,7 +80,7 @@ docker-compose --file dockers/production/docker-compose.yml down minecraft-serve
 * Next.js - The React and Express Framework
 * Socketio - Communicate between client and server
 * Semantic-ui-React - A UI component framework
-* Mongoose - Elegant mongodb object modeling for node.js
+* lowdb - Small local JSON database powered by Lodash
 * mineflayer - Create Minecraft bots with a powerful, stable, and high level JavaScript API.
 
 ## Thanks for Contributor
