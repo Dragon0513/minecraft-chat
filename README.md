@@ -29,7 +29,7 @@ git clone https://github.com/WooLNinesun/MinecraftChat.git
 Copy `.env.example` to `.env` and set environment variable in the file.
 
 ```bash
-npm install && npm run build-semantic && npm run build && npm run start
+npm install && npm run build && npm run start
 ```
 
 Open browser and type url `localhost:${port}` to  use application. `${port}` defined in `.env` file, default is 3000.
@@ -38,7 +38,8 @@ Open browser and type url `localhost:${port}` to  use application. `${port}` def
 
 ### Docker-compose (recommand)
 
-`docker-compose.yml` in `dockers/production`, can build and run it in docker-compose
+1. Copy `docker-compose.example.yml` to `docker-compose.yml` and edit this file with your config.
+2. File `docker-compose.yml` in `dockers/production`, can build and run it in docker-compose
 
 ```bash
 docker-compose --file dockers/production/docker-compose.yml up -d application
@@ -62,7 +63,8 @@ Download official minecraft server jar to create server. [Tutorials](https://min
 
 ### Docker-compose (recommand)
 
-`docker-compose.yml` in `dockers/production`, can build and run it in docker-compose
+1. Copy `config.example.env` to `config.env` and set variable in the file.
+2. File `docker-compose.yml` in `dockers/production`, can build and run it in docker-compose
 
 ```bash
 docker-compose --file dockers/production/docker-compose.yml up -d minecraft-server
