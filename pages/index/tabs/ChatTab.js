@@ -50,7 +50,7 @@ function ChatTab(props) {
           <div key={index} dangerouslySetInnerHTML={{ __html: message }}></div>
         ))}
       </div>
-      <Form inverted={props.dark_mode}
+      <Form inverted={props.inverted}
         className='message-input-box'
         onSubmit={handleSubmit}
       >

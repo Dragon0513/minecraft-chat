@@ -29,25 +29,25 @@ function IndexContainer(props) {
   const [Inverted, setInverted] = useState(true);
 
     return (
-      <div id="__app" className={this.state.dark_mode ? "inverted" : ""}>
+    <div id="__app" className={Inverted ? "inverted" : ""}>
         <Container id="mcc-container">
           <TabHOC
-            socket={this.props.socket}
-            defaultActiveIndex={0} inverted={this.state.dark_mode}
+          socket={props.socket}
+          defaultActiveIndex={0} inverted={Inverted}
             panes={[
               {
                 type: 'tab',
                 menuItem: { content: 'Chat', icon: 'chat' },
                 paneTab: (<ChatTab
-                  socket={this.props.socket}
-                  dark_mode={this.state.dark_mode}
+                socket={props.socket}
+                inverted={Inverted}
                 />)
               }, {
                 type: 'tab',
                 menuItem: { content: 'State', icon: 'info' },
                 paneTab: (<PlayerStateTab
-                  socket={this.props.socket}
-                  dark_mode={this.state.dark_mode}
+                socket={props.socket}
+                inverted={Inverted}
                 />)
               },
               {
@@ -69,8 +69,8 @@ function IndexContainer(props) {
                 type: 'tab',
                 menuItem: { content: 'Setting', icon: 'setting' },
                 paneTab: (<SettingTab
-                  dark_mode={this.state.dark_mode}
-                  handleSettingDarkModeChange={this.handleSettingDarkModeChange}
+                inverted={Inverted}
+                handleSettingDarkModeChange={setInverted}
                 />)
               }
             ]}

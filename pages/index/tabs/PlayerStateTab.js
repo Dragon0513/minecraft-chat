@@ -56,8 +56,8 @@ function PlayerStateTab(props) {
 
   return (
     <div id="playerstate-container" className="mcc-tab-container" >
-      <Header inverted={props.dark_mode}>Position</Header>
-      <Table definition inverted={props.dark_mode}>
+      <Header inverted={props.inverted}>Position</Header>
+      <Table definition inverted={props.inverted}>
         <Table.Body>
           <Table.Row>
             <Table.Cell width={2}>X</Table.Cell>
@@ -76,8 +76,8 @@ function PlayerStateTab(props) {
           </Table.Row>
         </Table.Body>
       </Table>
-      <Header inverted={props.dark_mode}>HUD</Header>
-      <Table definition inverted={props.dark_mode}>
+      <Header inverted={props.inverted}>HUD</Header>
+      <Table definition inverted={props.inverted}>
         <Table.Body>
           <Table.Row>
             <Table.Cell width={2}>Health</Table.Cell>
@@ -113,7 +113,7 @@ function PlayerStateTab(props) {
           </Table.Row>
         </Table.Body>
       </Table>
-      <Header inverted={props.dark_mode}>Effect</Header>
+      <Header inverted={props.inverted}>Effect</Header>
       <Image.Group size='tiny'>
         {Effects.map((effect, index) => {
           if (effect) {
