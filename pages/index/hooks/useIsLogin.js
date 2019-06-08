@@ -12,7 +12,7 @@ function useIsLogin(socket, toConnect, toDisconnect) {
   }
 
   useEffect(() => {
-    if (socket) {
+    if (socket && socket.connected) {
       socket.on('bot:connect', handleConnect);
       socket.on('bot:disconnect', handleDisconnect);
     }
@@ -20,7 +20,7 @@ function useIsLogin(socket, toConnect, toDisconnect) {
 
   useEffect(() => {
     return () => {
-      if (socket) {
+      if (socket && socket.connected) {
         socket.off('bot:connect', handleConnect);
         socket.off('bot:disconnect', handleDisconnect);
       }

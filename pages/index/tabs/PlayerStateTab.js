@@ -35,7 +35,7 @@ function PlayerStateTab(props) {
   }
 
   useEffect(() => {
-    if (props.socket) {
+    if (props.socket && props.socket.connected) {
       props.socket.on('bot:hud', handleRecvHud);
       props.socket.on('bot:move', handleRecvMove);
       props.socket.on('bot:disconnect', handleDisconnect);
@@ -45,7 +45,7 @@ function PlayerStateTab(props) {
 
   useEffect(() => {
     return () => {
-      if (props.socket) {
+      if (props.socket && props.socket.connected) {
         props.socket.off('bot:hud', handleRecvHud);
         props.socket.off('bot:move', handleRecvMove);
         props.socket.off('bot:disconnect', handleDisconnect);

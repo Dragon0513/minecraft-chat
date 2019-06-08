@@ -12,6 +12,7 @@ function ChatTab(props) {
     message: {}
   }, ({ message }) => {
     handleChange({}, { name: 'message', value: '' });
+    if (props.socket && props.socket.connected) {
       props.socket.emit('bot:chat', { message });
     }
   });
@@ -26,6 +27,7 @@ function ChatTab(props) {
   }
 
   useEffect(() => {
+    if (props.socket && props.socket.connected) {
       props.socket.on('message:chat', handleRecvMessage);
       props.socket.on('message:info', handleRecvMessage);
       props.socket.on('message:error', handleRecvMessage);
@@ -35,6 +37,7 @@ function ChatTab(props) {
 
   useEffect(() => {
     return () => {
+      if (props.socket && props.socket.connected) {
         props.socket.off('message:chat', handleRecvMessage);
         props.socket.off('message:info', handleRecvMessage);
         props.socket.off('message:error', handleRecvMessage);
