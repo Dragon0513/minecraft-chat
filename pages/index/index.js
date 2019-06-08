@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { Container } from "semantic-ui-react";
 import TabHOC from './components/Tab';
@@ -10,8 +10,7 @@ import SettingTab from './tabs/SettingTab';
 
 import './index.scss';
 
-class IndexContainer extends React.Component {
-  static async getInitialProps({ req }) {
+IndexContainer.getInitialProps = async ({ req }) => {
     if (req && req.db) {
       const { profiles, servers } = Object.assign({ profiles: [], servers: [] }, req.db);
       return { profiles, servers };
@@ -20,47 +19,15 @@ class IndexContainer extends React.Component {
     return {};
   }
 
-  static defaultProps = {
+IndexContainer.defaultProps = {
+  socket: null,
     profiles: [],
     servers: []
   }
 
-  state = {
-    isSubscribe: false,
-    isSubscribed: false,
-    dark_mode: true
-  }
+function IndexContainer(props) {
+  const [Inverted, setInverted] = useState(true);
 
-  subscribe = () => {
-    if (this.state.isSubscribe && !this.state.isSubscribed) {
-      this.setState({ isSubscribed: true });
-    }
-  }
-
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentDidUpdate() {
-    this.subscribe();
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.socket && !state.isSubscribe) {
-      return { isSubscribe: true };
-    }
-    return null;
-  }
-
-  componentWillUnmount() {
-  }
-
-  // setting
-  handleSettingDarkModeChange = (value) => {
-    this.setState({ dark_mode: value });
-  }
-
-  render() {
     return (
       <div id="__app" className={this.state.dark_mode ? "inverted" : ""}>
         <Container id="mcc-container">
@@ -112,6 +79,5 @@ class IndexContainer extends React.Component {
       </div>
     );
   }
-}
 
 export default IndexContainer
