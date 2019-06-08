@@ -6,5 +6,5 @@ module.exports = (socket) => {
     }
   };
 
-  socket.on('chat', onChat);
+  socket.on('bot:chat', onChat);
 };

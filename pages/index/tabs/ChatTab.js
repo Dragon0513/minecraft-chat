@@ -12,8 +12,7 @@ function ChatTab(props) {
     message: {}
   }, ({ message }) => {
     handleChange({}, { name: 'message', value: '' });
-    if (props.socket) {
-      props.socket.emit('chat', { message });
+      props.socket.emit('bot:chat', { message });
     }
   });
 
@@ -27,21 +26,19 @@ function ChatTab(props) {
   }
 
   useEffect(() => {
-    if (props.socket) {
-      props.socket.on('buffer:info', handleRecvMessage);
-      props.socket.on('buffer:error', handleRecvMessage);
-      props.socket.on('buffer:success', handleRecvMessage);
-      props.socket.on('buffer:message', handleRecvMessage);
+      props.socket.on('message:chat', handleRecvMessage);
+      props.socket.on('message:info', handleRecvMessage);
+      props.socket.on('message:error', handleRecvMessage);
+      props.socket.on('message:success', handleRecvMessage);
     }
   }, [props.socket]);
 
   useEffect(() => {
     return () => {
-      if (props.socket) {
-        props.socket.off('buffer:info', handleRecvMessage);
-        props.socket.off('buffer:error', handleRecvMessage);
-        props.socket.off('buffer:success', handleRecvMessage);
-        props.socket.off('buffer:message', handleRecvMessage);
+        props.socket.off('message:chat', handleRecvMessage);
+        props.socket.off('message:info', handleRecvMessage);
+        props.socket.off('message:error', handleRecvMessage);
+        props.socket.off('message:success', handleRecvMessage);
       }
     }
   }, []);

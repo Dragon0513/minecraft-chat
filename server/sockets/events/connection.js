@@ -13,11 +13,11 @@ module.exports = (socket) => {
     console.log(`${timestamp}: connecting > ${data.host}:${data.port} - ${data.version} - ${data.username}`);
 
     // inform user that connection is being made
-    socket.emit('buffer:info', `Connecting to ${data.version} server ${data.host}:${data.port}`);
+    socket.emit('message:info', `Connecting to ${data.version} server ${data.host}:${data.port}`);
 
     // if a bot already exists, ask user to disconnect
     if (socket.mcbot) {
-      socket.emit('buffer:error', 'Please disconnect before connecting again');
+      socket.emit('message:error', 'Please disconnect before connecting again');
       return;
     }
 

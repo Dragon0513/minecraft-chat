@@ -4,23 +4,23 @@ const escapeHtml = require('../../utils/escapeHtml');
 
 module.exports = (socket) => {
 
-  let onMessage = (message) => {
+  let onMessage = (rawMessage) => {
 
-    // empty buffer
-    var buffer = '';
+    // empty message
+    var message = '';
 
 
     // parse for json objects with 'extra'
-    if (message.extra) {
-      buffer = parseExtra(message.extra);
+    if (rawMessage.extra) {
+      message = parseExtra(rawMessage.extra);
 
       // if the text comes clean
-    } else if (message.text) {
-      buffer = message.text;
+    } else if (rawMessage.text) {
+      message = rawMessage.text;
 
-      // if the message is vanilla
-    } else if (message.translate) {
-      buffer = parseVanilla(message);
+      // if the rawMessage is vanilla
+    } else if (rawMessage.translate) {
+      message = parseVanilla(rawMessage);
 
       // the message format is not handled (yet)
     } else {
@@ -29,26 +29,25 @@ module.exports = (socket) => {
 
 
     // if none of the parsers returned anything, stop here
-    if (!buffer) return;
+    if (!message) return;
 
-    // escape any html in the buffer
-    buffer = escapeHtml(buffer);
+    // escape any html in the message
+    message = escapeHtml(message);
 
-    // format the buffer with the correct coloring and format whitespace
-    buffer = buffer.replace(/§([0-9abcdef])([^§]*)/ig, (regex, color, msg) => {
+    // format the message with the correct coloring and format whitespace
+    message = message.replace(/§([0-9abcdef])([^§]*)/ig, (regex, color, msg) => {
       msg = msg.replace(/ /g, '&nbsp;');
       return `<span class="mc-color-${color}">${msg}</span>`;
     });
 
-    buffer = buffer.replace(/((([A-Za-z]{3,9}:(?:\/\/))(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.))((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\-\.\!\/\\\w]*))?)/gi, (regex) => {
+    message = message.replace(/((([A-Za-z]{3,9}:(?:\/\/))(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.))((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\-\.\!\/\\\w]*))?)/gi, (regex) => {
       return `<a href="${regex}" target="_blank">${regex}</a>`;
     });
 
     // send line back to the client
-    socket.emit('buffer:message', buffer);
+    socket.emit('message:chat', message);
 
   };
 
   socket.mcbot.on('message', onMessage);
-
 };

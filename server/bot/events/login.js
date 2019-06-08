@@ -11,7 +11,7 @@ module.exports = (socket) => {
       port: socket.connectionParams.port
     };
 
-    socket.emit('buffer:success', `Successfully logged in as ${socket.mcbot.username} with entity id ${socket.mcbot.entity.id}`);
+    socket.emit('message:success', `Successfully logged in as ${socket.mcbot.username} with entity id ${socket.mcbot.entity.id}`);
     socket.emit('bot:connect', {
       ...hostdata,
       username: socket.mcbot.username,
