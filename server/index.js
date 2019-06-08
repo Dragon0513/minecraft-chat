@@ -25,19 +25,21 @@ const bodyParser = require('body-parser');
 nextApp.prepare().then(() => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json());
-  app.use((req, res, next) => {
-    next()
-  });
 
   app.get('/', (req, res) => {
     const profiles = lowdb.profiles.get.all().map(profile => ({
-      ...profile,
+      _id: profile._id,
+      username: profile.username,
       clientToken: profile.clientToken.split('-')[0]
     }));
-    const servers = lowdb.servers.get.all();
+    const servers = lowdb.servers.get.all().map(server => ({
+      host: server.host,
+      port: server.port,
+      version: server.version,
+    }));
     req.db = { profiles, servers };
 
-    return nextHandler(req, res);
+    return nextHandler(req, res, '/index');
   });
 
   app.get('*', (req, res) => {

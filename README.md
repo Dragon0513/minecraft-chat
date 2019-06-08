@@ -7,12 +7,12 @@ By connecting to any minecraft server, both offline and online mode, it enables 
 ## Featrue & TODO
 
 - [x] Use browser to login minecraft server both online-mode and offline-mode.
-- [x] Chat with other player and send commands to the server.
+- [x] Chat with other player and send commands to the server like in minecraft.
 - [x] Receive messages from server with text coloring!
 - [x] Make bot auto respawn when bot dead.
 - [x] Use database to cache bot login session and use it to login before session expired
 - [ ] Display event message, like weather change, attacked by monster...
-- [ ] Display bot state, like health, hunger, armor, and xp bar.
+- [x] Display bot state, like health, hunger, armor, and xp bar.
 - [ ] Display server state, like online player, scoreboard...
 - [ ] Can write a script to control bot.
 

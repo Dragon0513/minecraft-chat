@@ -26,6 +26,17 @@ function ChatTab(props) {
     setDisplayMessages(sliceMessages.slice(Math.max(sliceMessages.length - 200, 0)));
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      props.socket.emit('bot:tabComplete', values.message, (_, matches) => {
+        if (matches.length !== 0) {
+          handleRecvMessage(matches.join(' '));
+        }
+      });
+    }
+  }
+
   useEffect(() => {
     if (props.socket && props.socket.connected) {
       props.socket.on('message:chat', handleRecvMessage);
@@ -61,7 +72,7 @@ function ChatTab(props) {
           <Form.Field
             fluid width={16} control={Input} type='text' icon='send'
             name='message' value={values.message}
-            onChange={handleChange}
+            onChange={handleChange} onKeyDown={handleKeyDown}
           />
         </Form.Group>
       </Form>
