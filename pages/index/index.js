@@ -4,9 +4,7 @@ import { Container } from "semantic-ui-react";
 import TabHOC from './components/Tab';
 
 import ChatTab from './tabs/ChatTab';
-import ConnectRecentTab from './tabs/ConnectRecentTab';
-import ConnectLoginTab from './tabs/ConnectLoginTab';
-import DisconnectTab from './tabs/DisconnectTab';
+import ConnectTab from './tabs/ConnectTab';
 import PlayerStateTab from './tabs/PlayerStateTab';
 import SettingTab from './tabs/SettingTab';
 
@@ -90,26 +88,12 @@ class IndexContainer extends React.Component {
                 menuItem: { content: 'Connection' }
               }, {
                 type: 'tab',
-                menuItem: { content: 'Login', icon: 'sign in' },
-                paneTab: (<ConnectLoginTab
-                  socket={this.props.socket}
-                  dark_mode={this.state.dark_mode}
-                />)
-              }, {
-                type: 'tab',
-                menuItem: { content: 'Recent', icon: 'list' },
-                paneTab: (<ConnectRecentTab
-                  socket={this.props.socket}
-                  dark_mode={this.state.dark_mode}
-                  profiles={this.props.profiles}
-                  servers={this.props.servers}
-                />)
-              }, {
-                type: 'tab',
-                menuItem: { content: 'Disconnect', icon: 'sign out' },
-                paneTab: (<DisconnectTab
-                  dark_mode={this.state.dark_mode}
-                  socket={this.props.socket}
+              menuItem: { content: 'Connect', icon: 'sign in' },
+              paneTab: (<ConnectTab
+                socket={props.socket}
+                inverted={Inverted}
+                profiles={props.profiles}
+                servers={props.servers}
                 />)
               }, {
                 type: 'header',
