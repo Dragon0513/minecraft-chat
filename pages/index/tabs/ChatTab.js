@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import useForm from '../hooks/useForm';
 import useAutoScroll from '../hooks/useAutoScroll';
+import useSockets from '../hooks/useSockets';
 
 import { Form, Input } from 'semantic-ui-react';
 import './ChatTab.scss';
@@ -37,25 +38,12 @@ function ChatTab(props) {
     }
   }
 
-  useEffect(() => {
-    if (props.socket && props.socket.connected) {
-      props.socket.on('message:chat', handleRecvMessage);
-      props.socket.on('message:info', handleRecvMessage);
-      props.socket.on('message:error', handleRecvMessage);
-      props.socket.on('message:success', handleRecvMessage);
-    }
-  }, [props.socket]);
-
-  useEffect(() => {
-    return () => {
-      if (props.socket && props.socket.connected) {
-        props.socket.off('message:chat', handleRecvMessage);
-        props.socket.off('message:info', handleRecvMessage);
-        props.socket.off('message:error', handleRecvMessage);
-        props.socket.off('message:success', handleRecvMessage);
-      }
-    }
-  }, []);
+  useSockets(props.socket, [
+    { name: 'message:chat', handler: handleRecvMessage },
+    { name: 'message:info', handler: handleRecvMessage },
+    { name: 'message:error', handler: handleRecvMessage },
+    { name: 'message:success', handler: handleRecvMessage }
+  ]);
 
   return (
     <div id="chat-container" className="mcc-tab-container">

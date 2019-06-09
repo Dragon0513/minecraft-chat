@@ -5,7 +5,7 @@ import TabHOC from './components/Tab';
 
 import ChatTab from './tabs/ChatTab';
 import ConnectTab from './tabs/ConnectTab';
-import PlayerStateTab from './tabs/PlayerStateTab';
+import PlayerStateTab from './tabs/PlayerInfoTab';
 import SettingTab from './tabs/SettingTab';
 
 import './index.scss';

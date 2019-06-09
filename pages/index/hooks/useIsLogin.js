@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useSockets from './useSockets';
 
 function useIsLogin(socket, toConnect, toDisconnect) {
   const [IsLogin, setIsLogin] = useState(false);
@@ -11,21 +12,10 @@ function useIsLogin(socket, toConnect, toDisconnect) {
     setIsLogin(false);
   }
 
-  useEffect(() => {
-    if (socket && socket.connected) {
-      socket.on('bot:connect', handleConnect);
-      socket.on('bot:disconnect', handleDisconnect);
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    return () => {
-      if (socket && socket.connected) {
-        socket.off('bot:connect', handleConnect);
-        socket.off('bot:disconnect', handleDisconnect);
-      }
-    }
-  }, []);
+  useSockets(socket, [
+    { name: 'bot:connect', handler: handleConnect },
+    { name: 'bot:disconnect', handler: handleDisconnect }
+  ]);
 
   return IsLogin
 };
