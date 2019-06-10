@@ -53,12 +53,12 @@
 
 5. `bot:connect` `()`: Successfully connect from minecraft server.
 6. `bot:disconnect` `()`: Successfully disconnect from minecraft server.
-7. `bot:effect` `(effect)`: Recv effect info from minecraft server.
+7. `bot:effect` `(effect, isEnd)`: Recv effect info from minecraft server.
     ```js
     const effectTypes = Types.shape({
-      isEnd: Types.bool, // effect start or end.
       id: Types.string // effect id in minecraft.
     });
+    const isEndTypes = Types.bool; // effect start or end.
     ```
 
 8. `bot:hud` `(data)`: Recv HUD info from minecraft server.

@@ -13,13 +13,6 @@ function PlayerInfoTab(props) {
     setPosition(datas);
   }
 
-  const [Effects, setEffects] = useState(Array.apply(null, Array(32)).map(() => false));
-  const handleRecvEffect = (effect) => {
-    let newEffects = Effects;
-    newEffects[parseInt(effect.id, 10) - 1] = !effect.isEnd;
-    setEffects([...newEffects]);
-  }
-
   const [HUD, setHUD] = useState({
     food: 0,
     health: 0,
@@ -32,9 +25,17 @@ function PlayerInfoTab(props) {
     setHUD(datas);
   }
 
+  const [Effects, setEffects] = useState(Array.from({ length: 32 }).map(() => false));
+  const handleRecvEffect = (recvEffect, isEnd) => {
+    const recvEffectId = parseInt(recvEffect.id, 10) - 1;
+    setEffects((prevEffects) => prevEffects.map((effect, index) => {
+      return (index === recvEffectId) ? !isEnd : effect;
+    }));
+  }
+
   const handleDisconnect = () => {
     setPosition({ x: 0, y: 0, z: 0 });
-    setHUD({ food: 0, health: 0, saturation: 0, level: 0, progress: 0, points: 0 }); setEffects(Array.apply(null, Array(32)).map(() => false));
+    setHUD({ food: 0, health: 0, saturation: 0, level: 0, progress: 0, points: 0 }); setEffects(Array.from({ length: 32 }).map(() => false));
   }
 
   useSockets(props.socket, [

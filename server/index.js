@@ -50,4 +50,5 @@ nextApp.prepare().then(() => {
     if (err) { throw err; }
     console.log(`[!] Ready on http://localhost:${port}`);
   });
+  server.setTimeout(0);
 });

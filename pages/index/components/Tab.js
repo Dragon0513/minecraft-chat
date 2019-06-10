@@ -23,7 +23,8 @@ function TabHOC(props) {
     }
   }
 
-  useIsLogin(props.socket, () => { setactiveIndex(1); }, () => { setactiveIndex(1); })
+  useIsLogin(props.socket, () => { setactiveIndex(1); });
+
   return (
     <Tab
       id="mcc-tab-container" renderActiveOnly={false}
@@ -33,7 +34,7 @@ function TabHOC(props) {
       menuPosition='left'
       panes={panes}
     />
-  )
+  );
 }
 
 function generatePanes(props) {
