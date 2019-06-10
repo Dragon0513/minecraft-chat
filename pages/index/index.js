@@ -5,7 +5,8 @@ import TabHOC from './components/Tab';
 
 import ChatTab from './tabs/ChatTab';
 import ConnectTab from './tabs/ConnectTab';
-import PlayerStateTab from './tabs/PlayerInfoTab';
+import PlayerInfoTab from './tabs/PlayerInfoTab';
+import ServerInfoTab from './tabs/ServerInfoTab';
 import SettingTab from './tabs/SettingTab';
 
 import './index.scss';
@@ -48,7 +49,14 @@ function IndexContainer(props) {
             }, {
               type: 'tab',
               menuItem: { content: 'Player', icon: 'info' },
-              paneTab: (<PlayerStateTab
+              paneTab: (<PlayerInfoTab
+                socket={props.socket}
+                inverted={Inverted}
+              />)
+            }, {
+              type: 'tab',
+              menuItem: { content: 'Server', icon: 'info' },
+              paneTab: (<ServerInfoTab
                 socket={props.socket}
                 inverted={Inverted}
               />)

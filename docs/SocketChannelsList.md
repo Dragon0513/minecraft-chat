@@ -80,3 +80,13 @@
       z: Types.number
     });
     ```
+
+10. `bot:players` `player, state`: Recv player joined or left info from minecraft server.
+    ```js
+    const playerTypes = Types.shape({
+      uuid: Types.string,
+      username: Types.string,
+      ping: Types.number
+    });
+    const stateTypes = Types.oneOf(['joined', 'left']);
+    ```

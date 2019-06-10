@@ -10,8 +10,8 @@ const hud = require('./events/hud');
 const move = require('./events/move');
 const kicked = require('./events/kicked');
 const effect = require('./events/effect');
+const players = require('./events/players');
 
-// bind all listeners to the bot
 module.exports = (socket) => {
   error(socket);
   login(socket);
@@ -25,4 +25,5 @@ module.exports = (socket) => {
   hud(socket);
   kicked(socket);
   effect(socket);
+  players(socket);
 };
