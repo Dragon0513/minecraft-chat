@@ -4,7 +4,7 @@ import { Header, Image } from 'semantic-ui-react';
 
 import { effectData } from '../../datas/effects.json';
 
-ShowEffects.prototype = {
+ShowEffects.propTypes = {
   inverted: PropTypes.bool.isRequired,
   effects: PropTypes.arrayOf(PropTypes.bool).isRequired
 }

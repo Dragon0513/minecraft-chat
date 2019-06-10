@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { Header, Table } from 'semantic-ui-react';
 
-ShowPosition.prototype = {
+ShowPosition.propTypes = {
   inverted: PropTypes.bool.isRequired,
   position: PropTypes.shape({
     x: PropTypes.number,

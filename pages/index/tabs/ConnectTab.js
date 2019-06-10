@@ -48,7 +48,7 @@ function ConnectTab(props) {
 
   const handleDisconnectButtonClick = () => {
     if (props.socket && props.socket.connected) {
-      props.socket.emit('bot:disconnect');
+      props.socket.emit('server:disconnect');
     }
   }
 
@@ -74,7 +74,7 @@ function ConnectTab(props) {
           <Form.Field
             label='Username or Email'
             required={values.indexOfProfile === -1}
-            disabled={values.indexOfProfile !== -1}
+            disabled={values.indexOfProfile !== -1 || IsLogin === true}
             fluid width={8} control={Input} type='text'
             name='ManuallyUsername' value={values.ManuallyUsername}
             onChange={handleChange}
@@ -82,7 +82,7 @@ function ConnectTab(props) {
           <Form.Field
             label='Password'
             required={values.indexOfProfile === -1}
-            disabled={values.indexOfProfile !== -1}
+            disabled={values.indexOfProfile !== -1 || IsLogin === true}
             fluid width={8} control={Input} type='password'
             name='ManuallyPassword' value={values.ManuallyPassword}
             onChange={handleChange}
@@ -107,20 +107,20 @@ function ConnectTab(props) {
           <Form.Field
             label='Server Address'
             required={values.indexOfServer === -1}
-            disabled={values.indexOfServer !== -1}
+            disabled={values.indexOfServer !== -1 || IsLogin === true}
             fluid width={8} control={Input} type='text'
             name='ManuallyHost' value={values.ManuallyHost} onChange={handleChange}
           />
           <Form.Field
             label='Port'
             required={values.indexOfServer === -1}
-            disabled={values.indexOfServer !== -1}
+            disabled={values.indexOfServer !== -1 || IsLogin === true}
             fluid width={4} control={Input} type='text'
             name='ManuallyPort' value={values.ManuallyPort} onChange={handleChange}
           />
           <Form.Field
             required={values.indexOfServer === -1}
-            disabled={values.indexOfServer !== -1}
+            disabled={values.indexOfServer !== -1 || IsLogin === true}
             fluid width={4} control={Select}
             options={supportedVersions.map((version) => {
               return { key: version, text: version, value: version };

@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { Header, Table, Progress } from 'semantic-ui-react';
 
-ShowHUD.prototype = {
+ShowHUD.propTypes = {
   inverted: PropTypes.bool.isRequired,
   hud: PropTypes.shape({
     food: PropTypes.number,

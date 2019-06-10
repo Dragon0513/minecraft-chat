@@ -5,7 +5,11 @@ module.exports = (socket) => {
 
     var pos = socket.mcbot.entity.position;
     if (movingornot(socket.mcbot.entity.velocity)) {
-      socket.emit('bot:move', { x: pos.x.toFixed(2), y: pos.y.toFixed(2), z: pos.z.toFixed(2) });
+      socket.emit('bot:move', {
+        x: parseFloat(pos.x.toFixed(2)),
+        y: parseFloat(pos.y.toFixed(2)),
+        z: parseFloat(pos.z.toFixed(2))
+      });
     }
   };
 
@@ -15,7 +19,11 @@ module.exports = (socket) => {
     if (!socket.mcbot) { return; }
 
     var pos = socket.mcbot.entity.position;
-    socket.emit('bot:move', { x: pos.x.toFixed(2), y: pos.y.toFixed(2), z: pos.z.toFixed(2) });
+    socket.emit('bot:move', {
+      x: parseFloat(pos.x.toFixed(2)),
+      y: parseFloat(pos.y.toFixed(2)),
+      z: parseFloat(pos.z.toFixed(2))
+    });
   };
 
   socket.mcbot.on('forcedMove', onforcedMove);

@@ -15,6 +15,6 @@ module.exports = (socket) => {
   };
 
   socket.on('disconnect', onDisconnection);
-  socket.on('bot:disconnect', onDisconnection);
+  socket.on('server:disconnect', onDisconnection);
 
 };
